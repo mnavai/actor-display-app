@@ -31,10 +31,24 @@ function App() {
 
     fetchData();
   }, []);
+
+  const reeves = actors.filter((actor) => actor.name === "Keanu Reeves")
+  const reevesId = reeves[0]?.actorId
+  console.log("id",reevesId)
+  const reevesMovies = movies.filter((movie) => movie.actors.includes(reevesId));
+  console.log("movies",reevesMovies)
+
+
+  
   return (
     <div className="App">
       <header className="App-header">
           <h1>List of Actors:</h1>
+          <ul>
+            <li>{actors.map((actor) => {
+              return actor.actorId > 99
+            })}</li>
+          </ul>
       </header>
     </div>
   );
