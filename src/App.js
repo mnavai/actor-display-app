@@ -66,10 +66,12 @@ const foundActors = Array.from(commonActorIds).map((actorId) =>
   return (
     <div className="App">
       <header className="App-header">
-          <h3>Actors who have played with both<br/>Nicolas Cage and Keanu Reeves:</h3>
-          <ul>
-            {foundActors.map((actor) => <li>{"Name: "}{actor.name}, {"ID: "}{actor.actorId}</li>)}
-          </ul>
+          <div className='card'>
+            <h3>Actors who have played with both<br/>Nicolas Cage and Keanu Reeves:</h3>
+            <ul>
+              {foundActors.map((actor) => <li>{"Name: "}{actor.name}, {"ID: "}{actor.actorId}</li>)}
+            </ul>
+          </div>   
       </header>
     </div>
   );
