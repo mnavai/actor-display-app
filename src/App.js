@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import './App.css';
 
 function App() {
- const [actors, setActors] = useState([]);
+  const [actors, setActors] = useState([]);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -46,15 +46,29 @@ function App() {
   const cageMovies = movies.filter((movie) => movie.actors.includes(cageId))
   console.log("cage movies",cageMovies)
 
+  //find actors whom played in their movies
+const commonActorIds = new Set();
+for (let i = 0; i < cageMovies.length; i++) {
+  for (let j = 0; j < reevesMovies.length; j++) {
+    const commonActors = cageMovies[i].actors.filter((actorId) =>
+      reevesMovies[j].actors.includes(actorId)
+    );
+    commonActors.forEach((actorId) => commonActorIds.add(actorId));
+  }
+}
+
+// Convert the common actor IDs to actor objects
+const foundActors = Array.from(commonActorIds).map((actorId) =>
+  actors.find((actor) => actor.actorId === actorId)
+);
+  console.log("Actors who have played with both Cage and Reeves:", foundActors);
   
   return (
     <div className="App">
       <header className="App-header">
-          <h1>List of Actors:</h1>
+          <h3>Actors who have played with both<br/>Nicolas Cage and Keanu Reeves:</h3>
           <ul>
-            <li>{actors.map((actor) => {
-              return actor.actorId > 99
-            })}</li>
+            {foundActors.map((actor) => <li>{"Name: "}{actor.name}, {"ID: "}{actor.actorId}</li>)}
           </ul>
       </header>
     </div>
