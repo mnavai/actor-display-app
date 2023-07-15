@@ -5,6 +5,7 @@ import './App.css';
 function App() {
   const [actors, setActors] = useState([]);
   const [movies, setMovies] = useState([]);
+  const [buttonClicked, setButtonClicked] = useState(false);
 
   const handleClick = () => {
     const fetchData = async () => {
@@ -25,6 +26,7 @@ function App() {
         const moviesData = await moviesResponse.json();
         setMovies(moviesData);
         console.log('Movies:', moviesData);
+        setButtonClicked(true);
       } catch (error) {
         console.error(error);
       }
@@ -32,6 +34,7 @@ function App() {
 
     fetchData();
   }
+  const btnClassName = buttonClicked ? 'submit-btn clicked' : 'submit-btn';
   //first find the id of Keanu Reeves as that's the piece in common between the endpoints. 
   //then filter movies endpoint based on the id to only save movies K.Reeves played in
   const reeves = actors.filter((actor) => actor.name === "Keanu Reeves")
@@ -85,7 +88,7 @@ function App() {
             </div>
           </div> 
           <div className='btn'>
-            <Button type="submit" className="submit-btn" onClick={handleClick}>Load Actors</Button>
+            <Button type="submit" className={btnClassName} onClick={handleClick}>Load Actors</Button>
           </div> 
       </header>
     </div>

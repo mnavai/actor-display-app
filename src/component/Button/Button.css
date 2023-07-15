@@ -5,6 +5,9 @@
     margin-top: 2rem;
     color: white;
 }
-.submit-btn.select{
-    background-color: #24d8d5;
+.submit-btn.clicked{
+    background-color: #bc0c8d;
+}
+.submit-btn:hover{
+    background-color: #bc0c8d;
 }
