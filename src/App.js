@@ -36,16 +36,12 @@ function App() {
   //then filter movies endpoint based on the id to only save movies K.Reeves played in
   const reeves = actors.filter((actor) => actor.name === "Keanu Reeves")
   const reevesId = reeves[0]?.actorId
-  console.log("Reeves' id",reevesId)
   const reevesMovies = movies.filter((movie) => movie.actors.includes(reevesId));
-  console.log("Reeves' movies",reevesMovies)
-
+ 
   //do the same for N.Cage
   const cage = actors.filter((actor) => actor.name === "Nicolas Cage")
   const cageId = cage[0]?.actorId
-  console.log("Cage's id",cageId)
   const cageMovies = movies.filter((movie) => movie.actors.includes(cageId))
-  console.log("Cage's movies",cageMovies)
 
   //find actors whom played in their movies
   // const commonActorIds = new Set();
@@ -62,8 +58,6 @@ function App() {
   );
   return [...commonActorIds, ...actorsInBothMovies];
   }, []);
-
-  console.log("commonActorIds",commonActorIds)
 
   //Convert the common actor IDs to actor objects
   const foundActors = Array.from(commonActorIds).map((actorId) =>
