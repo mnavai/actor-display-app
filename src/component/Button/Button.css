@@ -1,0 +1,10 @@
+.submit-btn {
+    background-color: #189391;
+    width: 7rem;
+    height: 2.5rem;
+    margin-top: 2rem;
+    color: white;
+}
+.submit-btn.select{
+    background-color: #24d8d5;
+}

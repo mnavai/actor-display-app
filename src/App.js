@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react';
+import Button from './component/Button/Button';
 import './App.css';
 
 function App() {
@@ -31,6 +32,8 @@ function App() {
 
     fetchData();
   }, []);
+
+
   //first find the id of Keanu Reeves as that's the piece in common between the endpoints. 
   //then filter movies endpoint based on the id to only save movies K.Reeves played in
   const reeves = actors.filter((actor) => actor.name === "Keanu Reeves")
@@ -47,14 +50,21 @@ function App() {
   console.log("Cage's movies",cageMovies)
 
   //find actors whom played in their movies
-  const commonActorIds = new Set();
-  for (let i = 0; i < cageMovies.length; i++) {
-    for (let j = 0; j < reevesMovies.length; j++) {
-      const commonActors = cageMovies[i].actors.filter((actorId) =>
-        reevesMovies[j].actors.includes(actorId));
-      commonActors.forEach((actorId) => commonActorIds.add(actorId));
-    }
-  }
+  // const commonActorIds = new Set();
+  // for (let i = 0; i < cageMovies.length; i++) {
+  //   for (let j = 0; j < reevesMovies.length; j++) {
+  //     const commonActors = cageMovies[i].actors.filter((actorId) =>
+  //       reevesMovies[j].actors.includes(actorId));
+  //     commonActors.forEach((actorId) => commonActorIds.add(actorId));
+  //   }
+  // }
+  const commonActorIds = cageMovies.reduce((commonActorIds, cageMovie) => {
+    const actorsInBothMovies = cageMovie.actors.filter((actorId) =>
+    reevesMovies.some((reevesMovie) => reevesMovie.actors.includes(actorId))
+  );
+  return [...commonActorIds, ...actorsInBothMovies];
+  }, []);
+
   console.log("commonActorIds",commonActorIds)
 
   //Convert the common actor IDs to actor objects
@@ -66,7 +76,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-          <h3>Actors who have played with both<br/>Nicolas Cage and Keanu Reeves:</h3>
+          <h3 className='heading'>Actors who have played with both Nicolas Cage and Keanu Reeves</h3>
           <div className='card'>
             <div className='table'>
               <div className='row header'>
@@ -81,7 +91,10 @@ function App() {
                 </div>
               ))}
             </div>
-          </div>  
+          </div> 
+          <div className='btn'>
+            <Button type="submit" className="submit-btn" >Load Actors</Button>
+          </div> 
       </header>
     </div>
   );
