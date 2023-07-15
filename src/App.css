@@ -27,7 +27,36 @@
 .App-link {
   color: #61dafb;
 }
+li {
+  list-style: none;
+}
+.card {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
 
+.table {
+  display: flex;
+  flex-direction: column;
+  width:60vw;
+}
+
+.row {
+  display: flex;
+}
+
+.header {
+  font-weight: bold;
+  background-color: #189391;
+}
+
+.column {
+  flex: 1;
+  padding: 5px;
+}
+hr {
+  width: 60vw;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
