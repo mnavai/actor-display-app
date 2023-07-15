@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import Button from './component/Button/Button';
 import './App.css';
 
@@ -6,7 +6,7 @@ function App() {
   const [actors, setActors] = useState([]);
   const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
+  const handleClick = () => {
     const fetchData = async () => {
       try {
         const actorsResponse = await fetch('https://switch-yam-equator.azurewebsites.net/api/actors', {
@@ -31,7 +31,33 @@ function App() {
     };
 
     fetchData();
-  }, []);
+  }
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const actorsResponse = await fetch('https://switch-yam-equator.azurewebsites.net/api/actors', {
+  //         headers: {
+  //           'x-chmura-cors': '65cbd27c-860e-4950-8dc9-02b24e4d9020'
+  //         }
+  //       });
+  //       const actorsData = await actorsResponse.json();
+  //       setActors(actorsData);
+  //       console.log('Actors:', actorsData);
+  //       const moviesResponse = await fetch('https://switch-yam-equator.azurewebsites.net/api/movies', {
+  //         headers: {
+  //           'x-chmura-cors': '65cbd27c-860e-4950-8dc9-02b24e4d9020'
+  //         }
+  //       });
+  //       const moviesData = await moviesResponse.json();
+  //       setMovies(moviesData);
+  //       console.log('Movies:', moviesData);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
 
   //first find the id of Keanu Reeves as that's the piece in common between the endpoints. 
@@ -93,7 +119,7 @@ function App() {
             </div>
           </div> 
           <div className='btn'>
-            <Button type="submit" className="submit-btn" >Load Actors</Button>
+            <Button type="submit" className="submit-btn" onClick={handleClick}>Load Actors</Button>
           </div> 
       </header>
     </div>
