@@ -70,7 +70,7 @@ function App() {
   
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="App-header">
           <h3 className='heading'>Actors who have played with both Nicolas Cage and Keanu Reeves</h3>
           <div className='card'>
             <div className='table'>
@@ -90,7 +90,7 @@ function App() {
           <div className='btn'>
             <Button type="submit" className={btnClassName} onClick={handleClick}>Load Actors</Button>
           </div> 
-      </header>
+      </div>
     </div>
   );
 }

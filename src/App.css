@@ -54,3 +54,18 @@ hr {
   text-align: left;
 }
 
+@media screen and (min-width:579px) and (max-width: 1180px) {
+  .heading {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-width:578px){
+  .heading {
+    font-size: .6rem;
+    margin-bottom: 2rem;
+  }
+  .card{
+    font-size: .8rem;
+  }
+}

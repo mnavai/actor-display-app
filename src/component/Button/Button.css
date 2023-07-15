@@ -4,6 +4,7 @@
     height: 2.5rem;
     margin-top: 2rem;
     color: white;
+    border-radius: 10px;
 }
 .submit-btn.clicked{
     background-color: #bc0c8d;
