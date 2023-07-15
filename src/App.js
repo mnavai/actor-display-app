@@ -70,14 +70,14 @@ function App() {
           <div className='card'>
             <div className='table'>
               <div className='row header'>
-                <div className='column'>ID</div>
-                <div className='column'>Name</div>
+                <div className='column-id'>ID</div>
+                <div className='column-name'>Name</div>
               </div>
               <hr></hr>
               {foundActors.map((actor) => (
                 <div className='row' key={actor.actorId}>
-                  <div className='column'>{actor.actorId}</div>
-                  <div className='column'>{actor.name}</div>
+                  <div className='column-id'>{actor.actorId}</div>
+                  <div className='column-name'>{actor.name}</div>
                 </div>
               ))}
             </div>
