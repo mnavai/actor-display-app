@@ -13,7 +13,7 @@ function App() {
       try {
         const actorsResponse = await fetch('https://switch-yam-equator.azurewebsites.net/api/actors', {
           headers: {
-            'x-chmura-cors': '65cbd27c-860e-4950-8dc9-02b24e4d9020'
+            'x-chmura-cors': process.env.REACT_APP_ACCESS_KEY
           }
         });
         const actorsData = await actorsResponse.json();
@@ -21,7 +21,7 @@ function App() {
         console.log('Actors:', actorsData);
         const moviesResponse = await fetch('https://switch-yam-equator.azurewebsites.net/api/movies', {
           headers: {
-            'x-chmura-cors': '65cbd27c-860e-4950-8dc9-02b24e4d9020'
+            'x-chmura-cors': process.env.REACT_APP_ACCESS_KEY
           }
         });
         const moviesData = await moviesResponse.json();
@@ -39,11 +39,10 @@ function App() {
   const handlePost = () => {
     const headers = {
       'Content-Type': 'application/json',
-      'x-chmura-cors': '65cbd27c-860e-4950-8dc9-02b24e4d9020'
-      // 'Access-Control-Allow-Origin': '*'
+      'x-chmura-cors': process.env.REACT_APP_ACCESS_KEY
     };
 
-    fetch('https://switch-yam-equator.azurewebsites.net/api/', {
+    fetch('https://switch-yam-equator.azurewebsites.net/api/validation', {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(foundActors)
