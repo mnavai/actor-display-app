@@ -6,6 +6,7 @@ function App() {
   const [actors, setActors] = useState([]);
   const [movies, setMovies] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [postButtonClicked,setPostButtonClicked] = useState(false);
 
   const handleClick = () => {
     const fetchData = async () => {
@@ -35,7 +36,38 @@ function App() {
     fetchData();
   }
 
+  const handlePost = () => {
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-chmura-cors': '65cbd27c-860e-4950-8dc9-02b24e4d9020'
+      // 'Access-Control-Allow-Origin': '*'
+    };
+
+    fetch('https://switch-yam-equator.azurewebsites.net/api/', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(foundActors)
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(response.status);
+        else {
+          console.log(response.ok)
+          return response.json()
+        }
+      })
+      .then((data) => {
+        // Handle the response data
+        console.log('Data stored:', data);
+        setPostButtonClicked(true);
+      })
+      .catch((error) => {
+        console.log('Error: ' + error);
+        // Handle the error
+      });
+  };
+
   const btnClassName = buttonClicked ? 'submit-btn clicked' : 'submit-btn';
+  const btnClassNamePost = postButtonClicked ? 'submit-btn clicked' : 'submit-btn';
   //first find the id of Keanu Reeves as that's the piece in common between the endpoints. 
   //then filter movies endpoint based on the id to only save movies K.Reeves played in
   const reeves = actors.filter((actor) => actor.name === "Keanu Reeves")
@@ -81,6 +113,7 @@ function App() {
           </div> 
           <div className='btn'>
             <Button type="submit" className={btnClassName} onClick={handleClick}>Load Actors</Button>
+            <Button type="submit" className={btnClassNamePost} onClick={handlePost}>Post</Button>
           </div> 
       </div>
     </div>
