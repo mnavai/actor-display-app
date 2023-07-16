@@ -34,6 +34,7 @@ function App() {
 
     fetchData();
   }
+
   const btnClassName = buttonClicked ? 'submit-btn clicked' : 'submit-btn';
   //first find the id of Keanu Reeves as that's the piece in common between the endpoints. 
   //then filter movies endpoint based on the id to only save movies K.Reeves played in
@@ -46,26 +47,17 @@ function App() {
   const cageId = cage[0]?.actorId
   const cageMovies = movies.filter((movie) => movie.actors.includes(cageId))
 
-  //find actors whom played in their movies
-  // const commonActorIds = new Set();
-  // for (let i = 0; i < cageMovies.length; i++) {
-  //   for (let j = 0; j < reevesMovies.length; j++) {
-  //     const commonActors = cageMovies[i].actors.filter((actorId) =>
-  //       reevesMovies[j].actors.includes(actorId));
-  //     commonActors.forEach((actorId) => commonActorIds.add(actorId));
-  //   }
-  // }
+  // Find actors who played in their movies.
   const commonActorIds = cageMovies.reduce((commonActorIds, cageMovie) => {
     const actorsInBothMovies = cageMovie.actors.filter((actorId) =>
-    reevesMovies.some((reevesMovie) => reevesMovie.actors.includes(actorId))
-  );
-  return [...commonActorIds, ...actorsInBothMovies];
+      reevesMovies.some((reevesMovie) => reevesMovie.actors.includes(actorId))
+    );
+    return [...new Set([...commonActorIds, ...actorsInBothMovies])];
   }, []);
 
-  //Convert the common actor IDs to actor objects
-  const foundActors = Array.from(commonActorIds).map((actorId) =>
-    actors.find((actor) => actor.actorId === actorId)
-  );
+  // Convert the common actor IDs to actor objects.
+  const foundActors = commonActorIds.map((actorId) =>
+    actors.find((actor) => actor.actorId === actorId));
   console.log("Actors who have played with both Cage and Reeves:", foundActors);
   
   return (
