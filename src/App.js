@@ -104,7 +104,7 @@ function App() {
     fetch('https://switch-yam-equator.azurewebsites.net/api/validation', {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify(foundActors)
+      body: JSON.stringify(actorsData)
     })
       .then((response) => {
         console.log("respones is",response)
