@@ -8,8 +8,10 @@ function App() {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [postButtonClicked,setPostButtonClicked] = useState(false);
   const [response, setResponseStatus] = useState(null);
+  const [loading,setLoading] = useState(false);
 
   const handleClick = () => {
+    setLoading(true)
     const fetchData = async () => {
       try {
         const actorsResponse = await fetch('https://switch-yam-equator.azurewebsites.net/api/actors', {
@@ -29,23 +31,18 @@ function App() {
         setMovies(moviesData);
         console.log('Movies:', moviesData);
         setButtonClicked(true);
+        setLoading(false);
       } catch (error) {
+        setLoading(false)
         console.error(error);
       }
     };
-
-    fetchData();
+    setTimeout(() => {
+      fetchData();
+      // Code to be executed after 3 seconds
+      console.log("3 seconds have passed!");
+    }, 1000);
   }
-
-// {
-// "Name": "Alan Smithee",
-// "KRMovies": [
-    // "The Matrix",
-    // "The Matrix Revolutions"
-    // ]
-// "NCMovies": [
-    // "Gone in Sixty Seconds"
-// ]}
 
   const btnClassName = buttonClicked ? 'submit-btn clicked' : 'submit-btn';
   const btnClassNamePost = postButtonClicked ? 'submit-btn clicked' : 'submit-btn';
@@ -145,7 +142,7 @@ function App() {
             </div>
           </div> 
           <div className='btn'>
-            <Button type="submit" className={btnClassName} onClick={handleClick}>Load Actors</Button>
+            <Button type="submit" className={btnClassName} onClick={handleClick}>{loading ? "Loading..." : "Load Actors"}</Button>
             <Button type="submit" className={btnClassNamePost} onClick={handlePost}>Post</Button>
             <div>
               <h4>Response Status: {response && response}</h4>
