@@ -7,6 +7,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [postButtonClicked,setPostButtonClicked] = useState(false);
+  const [response, setResponseStatus] = useState(null);
 
   const handleClick = () => {
     const fetchData = async () => {
@@ -108,9 +109,10 @@ function App() {
     })
       .then((response) => {
         console.log("respones is",response)
-        if (!response.ok) throw new Error(response.status);
+        if (!response.ok) throw new Error(response.error);
         else {
-          console.log(response.ok)
+          setResponseStatus(response.status)
+          console.log("response",response.status)
           return response.json()
         }
       })
@@ -124,7 +126,7 @@ function App() {
         // Handle the error
       });
   };
-  console.log("foundactors",foundActors)
+
   return (
     <div className="App">
       <div className="App-header">
@@ -136,33 +138,18 @@ function App() {
               </div>
               <hr></hr>
               {foundActors.map((actor) => (
-    <div className="row" key={actor.actorId}>
-      <div className="column-name">{actor.name}</div>
-      <div className="column-kr-mov">
-        <ul>
-          {reevesMovies
-            .filter((movie) => movie.actors.includes(actor.actorId))
-            .map((movie) => (
-              <li key={movie.movieId}>{movie.name}</li>
+              <div className="row" key={actor.actorId}>
+                <div className="column-name">{actor.name}</div>
+              </div>
             ))}
-        </ul>
-      </div>
-      <div className="column-nc-mov">
-        <ul>
-          {cageMovies
-            .filter((movie) => movie.actors.includes(actor.actorId))
-            .map((movie) => (
-              <li key={movie.movieId}>{movie.name}</li>
-            ))}
-        </ul>
-      </div>
-    </div>
-  ))}
             </div>
           </div> 
           <div className='btn'>
             <Button type="submit" className={btnClassName} onClick={handleClick}>Load Actors</Button>
             <Button type="submit" className={btnClassNamePost} onClick={handlePost}>Post</Button>
+            <div>
+              <h4>Response Status: {response && response}</h4>
+            </div>
           </div> 
       </div>
     </div>
