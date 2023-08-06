@@ -21,7 +21,6 @@ function App() {
         });
         const actorsData = await actorsResponse.json();
         setActors(actorsData);
-        console.log('Actors:', actorsData);
         const moviesResponse = await fetch('https://switch-yam-equator.azurewebsites.net/api/movies', {
           headers: {
             'x-chmura-cors': process.env.REACT_APP_ACCESS_KEY
@@ -29,7 +28,6 @@ function App() {
         });
         const moviesData = await moviesResponse.json();
         setMovies(moviesData);
-        console.log('Movies:', moviesData);
         setButtonClicked(true);
         setLoading(false);
       } catch (error) {
@@ -39,9 +37,7 @@ function App() {
     };
     setTimeout(() => {
       fetchData();
-      // Code to be executed after 3 seconds
-      console.log("3 seconds have passed!");
-    }, 1000);
+    }, 500);
   }
 
   const btnClassName = buttonClicked ? 'submit-btn clicked' : 'submit-btn';
@@ -51,13 +47,13 @@ function App() {
   const reeves = actors.filter((actor) => actor.name === "Keanu Reeves")
   const reevesId = reeves[0]?.actorId
   const reevesMovies = movies.filter((movie) => movie.actors.includes(reevesId));
-  console.log("reevesMovies",reevesMovies)
+ 
  
   //do the same for N.Cage
   const cage = actors.filter((actor) => actor.name === "Nicolas Cage")
   const cageId = cage[0]?.actorId
   const cageMovies = movies.filter((movie) => movie.actors.includes(cageId))
-  console.log("cagemov",cageMovies)
+ 
   // Find actors who played in their movies.
   const commonActorIds = cageMovies.reduce((commonActorIds, cageMovie) => {
     const actorsInBothMovies = cageMovie.actors.filter((actorId) =>
@@ -69,7 +65,6 @@ function App() {
   // Convert the common actor IDs to actor objects.
   const foundActors = commonActorIds.map((actorId) =>
     actors.find((actor) => actor.actorId === actorId));
-  console.log("Actors who have played with both Cage and Reeves:", foundActors);
 
   const actorsData = foundActors.map((actor) => {
     // eslint-disable-next-line array-callback-return
@@ -83,15 +78,12 @@ function App() {
       }
     });
     
-    console.log("krMovies",krMovies)
     return {
       Name: actor.name,
       KRMovies: krMovies.map((movie) => movie.title),
       NCMovies: ncMovies.map((movie) => movie.title)
     };
   })
-
-  console.log("actor data", actorsData)  
 
   const handlePost = () => {
     const headers = {
